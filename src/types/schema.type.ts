@@ -8,18 +8,20 @@ export interface ICustomerSchema {
   customerSchema: {
     findAll: () => Promise<unknown[] | undefined>;
     findByHash: ({ hash }: any) => Promise<any>;
-    findById: (data: any) => Promise<any>;
+    findById: ({ customerId }: { customerId: string }) => Promise<any>;
     insert: (
       data: ICustomerData & {
         hash: string;
       }
     ) => Promise<any>;
-    remove: () => Promise<void>;
-    update: () => Promise<void>;
+    remove: (data: { customerId: string }) => Promise<void>;
+    update: (data: ICustomerData) => Promise<ICustomerData>;
   };
 }
 
 export interface ICustomerData {
+  id?: string;
+  hash?: string;
   source: ISource;
   firstName: string;
   lastName: string;
@@ -48,6 +50,7 @@ export interface IBuildMakeCustomer {
 }
 
 export interface IMakeCustomer {
+  getId: () => string;
   getSource: () => IMakeSourceResult;
   getFirstName: () => string;
   getLastName: () => string;

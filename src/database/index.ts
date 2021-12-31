@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { createConnection, Connection, getConnection } from "typeorm";
-import { ICustomerData } from "../types";
+import { ICustomerData, ICustomerSchema } from "../types";
 import logger from "../utils/logger";
 import { Customer } from "./entity/Customer";
 import { DeviceSource } from "./entity/DeviceSource";
@@ -40,13 +40,13 @@ class Database {
       return result;
     }
 
-    async function findById({ customerId }: any) {
+    async function findById({ customerId }: { customerId: string }) {
       const connection = getConnection();
 
       const repository = connection.getRepository(Entity);
       const customer = await repository.findOne({
         where: { id: customerId },
-        relations: ["sources"],
+        relations: ["sources", "saved_addresses"],
       });
       if (customer === undefined) {
         return null;
@@ -95,9 +95,30 @@ class Database {
       return customerResult;
     }
 
-    async function remove() {}
+    async function remove({ customerId }: { customerId: string }) {
+      const connection = getConnection();
+      const customerRepository = connection.getRepository(Entity);
 
-    async function update() {}
+      const customerToDelete = await customerRepository.findOne(customerId);
+      await customerRepository.remove(customerToDelete);
+    }
+
+    async function update(data: ICustomerData) {
+      const connection = getConnection();
+      const customerRepository = connection.getRepository(Entity);
+
+      const customerToUpdate: any = await customerRepository.findOne(data.id);
+      customerToUpdate.hash = data.hash;
+      customerToUpdate.email = data.email;
+      customerToUpdate.first_name = data.firstName;
+      customerToUpdate.last_name = data.lastName;
+      customerToUpdate.password = data.password;
+      customerToUpdate.phone_number = data.phoneNumber;
+
+      const result = await customerRepository.save(customerToUpdate);
+
+      return result;
+    }
   }
 }
 

@@ -52,6 +52,12 @@ module.exports = {
       "src/database/migration/**/*.ts"
     ),
   ],
+  cli: {
+    migrationsDir: envString(
+      "build/database/migration",
+      "src/database/migration"
+    ),
+  },
   subscribers: [
     envString(
       "build/database/subscriber/**/*.js",

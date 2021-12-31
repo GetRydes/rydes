@@ -4,35 +4,19 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { Customer } from "./Customer";
 
-@Entity({ name: "source" })
-export class DeviceSource {
+@Entity({ name: "customer_card" })
+export class CustomerCard {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.sources)
+  @ManyToOne(() => Customer, (customer) => customer.cards)
   @JoinColumn()
   customer!: Customer;
-
-  @Column()
-  ip?: string;
-
-  @Column()
-  browser?: string;
-
-  @Column({
-    nullable: true,
-  })
-  referrer?: string;
-
-  @Column({
-    default: false,
-  })
-  is_active?: Boolean;
 
   @CreateDateColumn({
     type: "timestamp",

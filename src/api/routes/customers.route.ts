@@ -1,10 +1,19 @@
 import { Router } from "express";
 import { makeCallback } from "../../utils";
-import { postCustomer, getCustomers } from "../controllers";
+import {
+  postCustomer,
+  getCustomers,
+  getCustomer,
+  patchCustomer,
+  deleteCustomer,
+} from "../controllers";
 
 const router = Router();
 
 router.post("/", makeCallback(postCustomer));
 router.get("/", makeCallback(getCustomers));
+router.get("/:id", makeCallback(getCustomer));
+router.patch("/:id", makeCallback(patchCustomer));
+router.delete("/:id", makeCallback(deleteCustomer));
 
 export default router;

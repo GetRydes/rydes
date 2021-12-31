@@ -1,3 +1,3 @@
-## Rydes Trip Gateway Service
+## Rydes Customer Profile Service
 
-This component is the core service and responsible for matching passenger’s demand and driver’s supply
+This component is responsible for storing customers profile information

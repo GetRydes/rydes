@@ -11,6 +11,7 @@ export default function buildMakeCustomer({
   md5,
 }: IBuildMakeCustomer) {
   return async ({
+    id = "",
     source,
     firstName,
     lastName,
@@ -29,6 +30,7 @@ export default function buildMakeCustomer({
     };
 
     return Object.freeze({
+      getId: () => id,
       getSource: () => validSource,
       getFirstName: () => sanitize(firstName),
       getLastName: () => sanitize(lastName),

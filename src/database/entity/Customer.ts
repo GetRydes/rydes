@@ -7,6 +7,8 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
+import { CustomerAddress } from "./CustomerAddress";
+import { CustomerCard } from "./CustomerCard";
 import { DeviceSource } from "./DeviceSource";
 
 @Entity({ name: "customer" })
@@ -32,7 +34,7 @@ export class Customer {
   password!: string;
 
   @Column({ nullable: false })
-  phone_number!: String;
+  phone_number!: string;
 
   @Column({
     default: true,
@@ -42,6 +44,14 @@ export class Customer {
   @OneToMany(() => DeviceSource, (source) => source.customer)
   @JoinColumn()
   sources?: DeviceSource[];
+
+  @OneToMany(() => CustomerAddress, (address) => address.customer)
+  @JoinColumn()
+  saved_addresses?: CustomerAddress[];
+
+  @OneToMany(() => CustomerCard, (address) => address.customer)
+  @JoinColumn()
+  cards?: CustomerCard[];
 
   @CreateDateColumn({
     type: "timestamp",

@@ -4,35 +4,43 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { Customer } from "./Customer";
 
-@Entity({ name: "source" })
-export class DeviceSource {
+@Entity({ name: "customer_address" })
+export class CustomerAddress {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.sources)
+  @Column()
+  street!: string;
+
+  @Column()
+  city!: string;
+
+  @Column()
+  state!: string;
+
+  @Column()
+  country!: string;
+
+  @ManyToOne(() => Customer, (customer) => customer.saved_addresses)
   @JoinColumn()
   customer!: Customer;
-
-  @Column()
-  ip?: string;
-
-  @Column()
-  browser?: string;
-
-  @Column({
-    nullable: true,
-  })
-  referrer?: string;
 
   @Column({
     default: false,
   })
-  is_active?: Boolean;
+  default?: Boolean;
+
+  /*
+    this could be an enum ("home", "work", "others")
+    https://stackoverflow.com/questions/44974594/postgres-enum-in-typeorm
+  */
+  @Column()
+  type!: string;
 
   @CreateDateColumn({
     type: "timestamp",
