@@ -1,6 +1,6 @@
 import cors from "cors";
-import express, { Application, Request, Response } from "express";
-import { customerRoutes } from "../api/routes";
+import express, { Application, Response } from "express";
+import routes from "../api/routes";
 
 export default async ({ app }: { app: Application }) => {
   app.use(cors());
@@ -11,13 +11,7 @@ export default async ({ app }: { app: Application }) => {
     })
   );
 
-  app.get("/status", (_, res) => {
-    return res.status(200).json({
-      message: "Rydes trip gateway service is up and running ",
-    });
-  });
-
-  app.use("/api/v1/customers", customerRoutes);
+  app.use("/api/v1", routes);
 
   app.all("*", (_, res: Response) => {
     res.status(400).send({
