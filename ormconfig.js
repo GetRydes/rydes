@@ -30,6 +30,8 @@ const envString = (prodString, devString) => {
   return process.env.NODE_ENV === "production" ? prodString : devString;
 };
 
+const sslConfig = envString({ ssl: { rejectUnauthorized: false } }, {});
+
 module.exports = {
   name: "default",
   type: process.env.DB_TYPE || "postgres",
@@ -40,9 +42,6 @@ module.exports = {
   database: envString(getProdOptions().database, process.env.DB_NAME),
   synchronize: true,
   logging: false,
-  //   extra: {
-  //     ssl: { rejectUnauthorized: false },
-  //   },
   entities: [
     envString("build/database/entity/**/*.js", "src/database/entity/**/*.ts"),
   ],
@@ -75,4 +74,5 @@ module.exports = {
       "src/database/subscriber"
     ),
   },
+  ...sslConfig,
 };
