@@ -1,6 +1,8 @@
 import cors from "cors";
 import express, { Application, Response } from "express";
+import swaggerUi from "swagger-ui-express";
 import routes from "../api/routes";
+import swaggerFile from "../../swagger-output.json";
 
 export default async ({ app }: { app: Application }) => {
   app.use(cors());
@@ -10,6 +12,8 @@ export default async ({ app }: { app: Application }) => {
       extended: false,
     })
   );
+
+  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   app.use("/api/v1", routes);
 
