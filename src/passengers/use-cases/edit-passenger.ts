@@ -1,14 +1,14 @@
 import makeCustomer from "../../database/helpers/customer";
-import { ICustomerData, ICustomerSchema } from "../../types";
+import { ICustomerData, IPassengerSchema } from "../../types";
 
-const makeEditCustomer = ({ customerSchema }: ICustomerSchema) => {
+const makeEditCustomer = ({ PassengerSchema }: IPassengerSchema) => {
   return async ({ id, ...changes }: ICustomerData & { id: string }) => {
     // todo: implement valid for input data using joi
     if (!id) {
       throw new Error("You must supply an id.");
     }
 
-    const existing = await customerSchema.findById({ customerId: id });
+    const existing = await PassengerSchema.findById({ customerId: id });
 
     if (!existing) {
       throw new RangeError("Customer not found.");
@@ -22,7 +22,7 @@ const makeEditCustomer = ({ customerSchema }: ICustomerSchema) => {
 
     const customerSource = customer.getSource();
 
-    const updated = await customerSchema.update({
+    const updated = await PassengerSchema.update({
       id: customer.getId(),
       firstName: customer.getFirstName(),
       lastName: customer.getLastName(),

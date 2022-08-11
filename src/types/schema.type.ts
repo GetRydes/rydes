@@ -4,8 +4,8 @@ export interface ICustomerEntity {
   Customer: Customer;
 }
 
-export interface ICustomerSchema {
-  customerSchema: {
+export interface IPassengerSchema {
+  PassengerSchema: {
     findAll: () => Promise<unknown[] | undefined>;
     findByHash: ({ hash }: any) => Promise<any>;
     findById: ({ customerId }: { customerId: string }) => Promise<any>;

@@ -1,11 +1,11 @@
 import makeCustomer from "../../database/helpers/customer";
-import { ICustomerData, ICustomerSchema } from "../../types";
+import { ICustomerData, IPassengerSchema } from "../../types";
 
-const makeAddCustomer = ({ customerSchema }: ICustomerSchema) => {
+const makeAddCustomer = ({ PassengerSchema }: IPassengerSchema) => {
   return async (customerInfo: ICustomerData) => {
     const customer = await makeCustomer(customerInfo);
 
-    const exists = await customerSchema.findByHash({
+    const exists = await PassengerSchema.findByHash({
       hash: customer.getHash(),
     });
     if (exists) {
@@ -14,7 +14,7 @@ const makeAddCustomer = ({ customerSchema }: ICustomerSchema) => {
 
     const customerSource = customer.getSource();
 
-    return customerSchema.insert({
+    return PassengerSchema.insert({
       firstName: customer.getFirstName(),
       lastName: customer.getLastName(),
       email: customer.getEmail(),

@@ -1,8 +1,8 @@
 import cors from "cors";
 import express, { Application, Response } from "express";
-import routes from "../api/routes";
+import routes from "../app.route";
 
-export default async ({ app }: { app: Application }) => {
+export default async (app: Application, callback?: () => void) => {
   app.use(cors());
   app.use(express.json());
   app.use(
@@ -11,6 +11,10 @@ export default async ({ app }: { app: Application }) => {
     })
   );
 
+  app.get("/", (_, res: Response) => {
+    return res.redirect("/api/v1/docs");
+  });
+
   app.use("/api/v1", routes);
 
   app.all("*", (_, res: Response) => {
@@ -18,4 +22,6 @@ export default async ({ app }: { app: Application }) => {
       message: "Invalid api route",
     });
   });
+
+  callback?.();
 };

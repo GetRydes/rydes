@@ -1,12 +1,12 @@
-import { ICustomerSchema } from "../../types";
+import { IPassengerSchema } from "../../types";
 
-const makeRetrieveCustomer = ({ customerSchema }: ICustomerSchema) => {
+const makeRetrieveCustomer = ({ PassengerSchema }: IPassengerSchema) => {
   return async ({ customerId }: { customerId: string }) => {
     if (!customerId) {
       throw new Error("You must supply a customer id.");
     }
 
-    const customerData = await customerSchema.findById({ customerId });
+    const customerData = await PassengerSchema.findById({ customerId });
 
     return customerData;
   };

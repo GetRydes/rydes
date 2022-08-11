@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { makeCallback } from "../../utils";
+import { makeCallback } from "../utils";
 import {
   postCustomer,
   getCustomers,
   getCustomer,
   patchCustomer,
   deleteCustomer,
-} from "../controllers";
+} from "./passengers.controller";
 
 const router = Router();
 
