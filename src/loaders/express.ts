@@ -1,6 +1,6 @@
 import cors from "cors";
-import express, { Application, Response } from "express";
-import routes from "../app.route";
+import express, { Application } from "express";
+import session from "express-session";
 
 export default async (app: Application, callback?: () => void) => {
   app.use(cors());
@@ -10,19 +10,13 @@ export default async (app: Application, callback?: () => void) => {
       extended: false,
     })
   );
-
-  app.get("/", (_, res: Response) => {
-    return res.redirect("/api/v1/docs");
-  });
-
-  app.use("/api/v1", routes);
-
-  app.all("*", (_, res: Response) => {
-    res.status(400).send({
-      message: "Invalid api route",
-      status: false,
-    });
-  });
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET_KEY as string,
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
 
   callback?.();
 };

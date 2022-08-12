@@ -48,7 +48,7 @@ module.exports = {
   subscribers: [join(__dirname, "**", "subscribers", "**", "*.{ts,js}")],
   cli: {
     entitiesDir: join(__dirname, "**", "entities"),
-    migrationsDir: join(__dirname, "**", "database/migrations"),
+    migrationsDir: join(__dirname, "src", "database/migrations"),
     subscribersDir: join(__dirname, "**", "subscribers"),
   },
   ...sslConfig,

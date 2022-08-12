@@ -9,8 +9,8 @@ import {
 } from "typeorm";
 import { Passenger } from "./passenger.entity";
 
-@Entity({ name: "passenger_address" })
-export class PassengerAddress {
+@Entity({ name: "address" })
+export class Address {
   @PrimaryGeneratedColumn()
   id!: number;
 

@@ -13,6 +13,7 @@ router.post(
     successReturnToOrRedirect: "/api/v1/auth/login/password/success",
     failureRedirect: "/api/v1/auth/login/password/failed",
     failureMessage: false,
+    session: false,
   })
 );
 

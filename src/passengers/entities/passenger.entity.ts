@@ -7,7 +7,7 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { PassengerAddress } from "./passenger-address.entity";
+import { Address } from "./address.entity";
 import { Card } from "../../cards/entities/card.entity";
 import { Device } from "../../devices/entities/device.entity";
 
@@ -45,9 +45,9 @@ export class Passenger {
   @JoinColumn()
   devices?: Device[];
 
-  @OneToMany(() => PassengerAddress, (address) => address.passenger)
+  @OneToMany(() => Address, (address) => address.passenger)
   @JoinColumn()
-  saved_addresses?: PassengerAddress[];
+  saved_addresses?: Address[];
 
   @OneToMany(() => Card, (address) => address.passenger)
   @JoinColumn()
