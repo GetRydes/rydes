@@ -1,5 +1,6 @@
 const PostgressConnectionStringParser = require("pg-connection-string");
 const dotenv = require("dotenv");
+const { join } = require("path");
 dotenv.config();
 
 const getProdOptions = () => {
@@ -42,37 +43,13 @@ module.exports = {
   database: envString(getProdOptions().database, process.env.DB_NAME),
   synchronize: true,
   logging: false,
-  entities: [
-    envString("build/database/entity/**/*.js", "src/database/entity/**/*.ts"),
-  ],
-  migrations: [
-    envString(
-      "build/database/migration/**/*.js",
-      "src/database/migration/**/*.ts"
-    ),
-  ],
+  entities: [join(__dirname, "**", "*.entity.{ts,js}")],
+  migrations: [join(__dirname, "**", "migrations", "**", "*.{ts,js}")],
+  subscribers: [join(__dirname, "**", "subscribers", "**", "*.{ts,js}")],
   cli: {
-    migrationsDir: envString(
-      "build/database/migration",
-      "src/database/migration"
-    ),
-  },
-  subscribers: [
-    envString(
-      "build/database/subscriber/**/*.js",
-      "src/database/subscriber/**/*.ts"
-    ),
-  ],
-  cli: {
-    entitiesDir: envString("build/database/entity", "src/database/entity"),
-    migrationsDir: envString(
-      "build/database/migration",
-      "src/database/migration"
-    ),
-    subscribersDir: envString(
-      "build/database/subscriber",
-      "src/database/subscriber"
-    ),
+    entitiesDir: join(__dirname, "**", "entities"),
+    migrationsDir: join(__dirname, "**", "migrations"),
+    subscribersDir: join(__dirname, "**", "subscribers"),
   },
   ...sslConfig,
 };

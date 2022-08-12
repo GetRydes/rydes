@@ -1,12 +1,12 @@
 import { getConnection } from "typeorm";
-import { Customer } from "../database/entity/Customer";
-import { DeviceSource } from "../database/entity/DeviceSource";
+import { Passenger } from "./entities/passenger.entity";
+import { Device } from "../devices/entities/device.entity";
 import { ICustomerData } from "../types";
 
 async function findAll() {
   const connection = getConnection();
 
-  const repository = connection.getRepository(Customer);
+  const repository = connection.getRepository(Passenger);
   const result = await repository.find();
   return result;
 }
@@ -14,10 +14,10 @@ async function findAll() {
 async function findById({ customerId }: { customerId: string }) {
   const connection = getConnection();
 
-  const repository = connection.getRepository(Customer);
+  const repository = connection.getRepository(Passenger);
   const customer = await repository.findOne({
     where: { id: customerId },
-    relations: ["sources", "saved_addresses"],
+    relations: ["devices", "saved_addresses"],
   });
   if (customer === undefined) {
     return null;
@@ -28,7 +28,7 @@ async function findById({ customerId }: { customerId: string }) {
 async function findByHash({ hash }: any): Promise<any> {
   const connection = getConnection();
 
-  const repository = connection.getRepository(Customer);
+  const repository = connection.getRepository(Passenger);
   const result = await repository.findOne({ hash });
   if (result === undefined) {
     return null;
@@ -42,11 +42,11 @@ async function insert(
   }
 ): Promise<any> {
   const connection = getConnection();
-  const customerRepository = connection.getRepository(Customer);
-  const sourceRepository = connection.getRepository(DeviceSource);
+  const customerRepository = connection.getRepository(Passenger);
+  const sourceRepository = connection.getRepository(Device);
 
   // create customer
-  const customer = new Customer();
+  const customer = new Passenger();
   customer.hash = data.hash;
   customer.email = data.email;
   customer.first_name = data.firstName;
@@ -56,11 +56,11 @@ async function insert(
   const customerResult = await customerRepository.save(customer);
 
   // save user device information to db
-  const source = new DeviceSource();
+  const source = new Device();
   source.browser = data.source.browser;
   source.ip = data.source.ip;
   source.referrer = data.source.referrer;
-  source.customer = customerResult;
+  source.passenger = customerResult;
   await sourceRepository.save(source);
 
   return customerResult;
@@ -68,7 +68,7 @@ async function insert(
 
 async function remove({ customerId }: { customerId: string }) {
   const connection = getConnection();
-  const customerRepository = connection.getRepository(Customer);
+  const customerRepository = connection.getRepository(Passenger);
 
   const customerToDelete = await customerRepository.findOne(customerId);
   if (customerToDelete) await customerRepository.remove(customerToDelete);
@@ -76,7 +76,7 @@ async function remove({ customerId }: { customerId: string }) {
 
 async function update(data: ICustomerData) {
   const connection = getConnection();
-  const customerRepository = connection.getRepository(Customer);
+  const customerRepository = connection.getRepository(Passenger);
 
   const customerToUpdate: any = await customerRepository.findOne(data.id);
   customerToUpdate.hash = data.hash;

@@ -7,16 +7,16 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { Customer } from "./Customer";
+import { Passenger } from "../../passengers/entities/passenger.entity";
 
-@Entity({ name: "customer_card" })
-export class CustomerCard {
+@Entity({ name: "card" })
+export class Card {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.cards)
+  @ManyToOne(() => Passenger, (passenger) => passenger.cards)
   @JoinColumn()
-  customer!: Customer;
+  passenger!: Passenger;
 
   @CreateDateColumn({
     type: "timestamp",

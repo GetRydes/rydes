@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse } from "../../../types";
+import { HttpRequest, HttpResponse } from "../../types";
 
 const makeGetCustomer = ({ retrieveCustomer, Logger }: any) => {
   return async (httpRequest: HttpRequest): Promise<HttpResponse> => {

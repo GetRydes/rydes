@@ -1,7 +1,7 @@
-import { Customer } from "../database/entity/Customer";
+import { Passenger } from "../passengers/entities/passenger.entity";
 
 export interface ICustomerEntity {
-  Customer: Customer;
+  Passenger: Passenger;
 }
 
 export interface IPassengerSchema {

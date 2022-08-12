@@ -2,7 +2,7 @@ import {
   HttpRequest,
   HttpResponse,
   IMakePostUserController,
-} from "../../../types";
+} from "../../types";
 
 const makePostCustomer = ({ addCustomer, Logger }: IMakePostUserController) => {
   return async (httpRequest: HttpRequest): Promise<HttpResponse> => {

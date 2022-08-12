@@ -7,12 +7,12 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { CustomerAddress } from "./CustomerAddress";
-import { CustomerCard } from "./CustomerCard";
-import { DeviceSource } from "./DeviceSource";
+import { PassengerAddress } from "./passenger-address.entity";
+import { Card } from "../../cards/entities/card.entity";
+import { Device } from "../../devices/entities/device.entity";
 
-@Entity({ name: "customer" })
-export class Customer {
+@Entity({ name: "passenger" })
+export class Passenger {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -41,17 +41,17 @@ export class Customer {
   })
   is_active?: Boolean;
 
-  @OneToMany(() => DeviceSource, (source) => source.customer)
+  @OneToMany(() => Device, (source) => source.passenger)
   @JoinColumn()
-  sources?: DeviceSource[];
+  devices?: Device[];
 
-  @OneToMany(() => CustomerAddress, (address) => address.customer)
+  @OneToMany(() => PassengerAddress, (address) => address.passenger)
   @JoinColumn()
-  saved_addresses?: CustomerAddress[];
+  saved_addresses?: PassengerAddress[];
 
-  @OneToMany(() => CustomerCard, (address) => address.customer)
+  @OneToMany(() => Card, (address) => address.passenger)
   @JoinColumn()
-  cards?: CustomerCard[];
+  cards?: Card[];
 
   @CreateDateColumn({
     type: "timestamp",

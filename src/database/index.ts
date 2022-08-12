@@ -12,6 +12,7 @@ class Database {
       logger.info("DB connected");
       return response;
     } catch (e) {
+      console.log(e);
       logger.error("Error connecting to DB: ", e);
       process.exit(1);
     }

@@ -7,16 +7,16 @@ import {
   JoinColumn,
   ManyToOne,
 } from "typeorm";
-import { Customer } from "./Customer";
+import { Passenger } from "../../passengers/entities/passenger.entity";
 
-@Entity({ name: "source" })
-export class DeviceSource {
+@Entity({ name: "device" })
+export class Device {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.sources)
+  @ManyToOne(() => Passenger, (passenger) => passenger.devices)
   @JoinColumn()
-  customer!: Customer;
+  passenger!: Passenger;
 
   @Column()
   ip?: string;

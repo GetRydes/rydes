@@ -7,10 +7,10 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { Customer } from "./Customer";
+import { Passenger } from "./passenger.entity";
 
-@Entity({ name: "customer_address" })
-export class CustomerAddress {
+@Entity({ name: "passenger_address" })
+export class PassengerAddress {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -26,9 +26,9 @@ export class CustomerAddress {
   @Column()
   country!: string;
 
-  @ManyToOne(() => Customer, (customer) => customer.saved_addresses)
+  @ManyToOne(() => Passenger, (passenger) => passenger.saved_addresses)
   @JoinColumn()
-  customer!: Customer;
+  passenger!: Passenger;
 
   @Column({
     default: false,
