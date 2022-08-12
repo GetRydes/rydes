@@ -41,7 +41,7 @@ module.exports = {
   username: envString(getProdOptions().username, process.env.DB_USER),
   password: envString(getProdOptions().password, process.env.DB_PASSWORD),
   database: envString(getProdOptions().database, process.env.DB_NAME),
-  synchronize: true,
+  synchronize: false,
   logging: false,
   entities: [join(__dirname, "**", "*.entity.{ts,js}")],
   migrations: [join(__dirname, "**", "database/migrations", "**", "*.{ts,js}")],
