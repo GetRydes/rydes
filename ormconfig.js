@@ -44,11 +44,11 @@ module.exports = {
   synchronize: true,
   logging: false,
   entities: [join(__dirname, "**", "*.entity.{ts,js}")],
-  migrations: [join(__dirname, "**", "migrations", "**", "*.{ts,js}")],
+  migrations: [join(__dirname, "**", "database/migrations", "**", "*.{ts,js}")],
   subscribers: [join(__dirname, "**", "subscribers", "**", "*.{ts,js}")],
   cli: {
     entitiesDir: join(__dirname, "**", "entities"),
-    migrationsDir: join(__dirname, "**", "migrations"),
+    migrationsDir: join(__dirname, "**", "database/migrations"),
     subscribersDir: join(__dirname, "**", "subscribers"),
   },
   ...sslConfig,

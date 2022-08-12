@@ -25,7 +25,7 @@ const makeGetCustomers = ({ listCustomers, Logger }: any) => {
         },
         statusCode: 400,
         body: {
-          error: e.message,
+          message: e.message,
         },
       };
     }

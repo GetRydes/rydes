@@ -19,7 +19,7 @@ const makeDeleteCustomer = ({ removeCustomer, Logger }: any) => {
         },
         statusCode: 400,
         body: {
-          error: e.message,
+          message: e.message,
         },
       };
     }

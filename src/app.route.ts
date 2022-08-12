@@ -2,7 +2,9 @@ import { Router } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../swagger-output.json";
 
+import authRoutes from "./auth/auth.route";
 import passengerRoutes from "./passengers/passengers.route";
+import cardRoutes from "./cards/cards.route";
 
 const router = Router();
 
@@ -21,7 +23,9 @@ router.get("/status", (_, res) => {
   });
 });
 
+router.use("/auth", authRoutes);
 router.use("/passengers", passengerRoutes);
+router.use("/cards", cardRoutes);
 
 router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 

@@ -40,7 +40,7 @@ const makePatchCustomer = ({ editCustomer, Logger }: any) => {
           },
           statusCode: 404,
           body: {
-            error: e.message,
+            message: e.message,
           },
         };
       }
@@ -50,7 +50,7 @@ const makePatchCustomer = ({ editCustomer, Logger }: any) => {
         },
         statusCode: 400,
         body: {
-          error: e.message,
+          message: e.message,
         },
       };
     }

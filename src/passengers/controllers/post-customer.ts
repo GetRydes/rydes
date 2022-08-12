@@ -1,10 +1,15 @@
+import dayjs from "dayjs";
 import {
   HttpRequest,
   HttpResponse,
   IMakePostUserController,
 } from "../../types";
 
-const makePostCustomer = ({ addCustomer, Logger }: IMakePostUserController) => {
+const makePostCustomer = ({
+  addCustomer,
+  response,
+  Logger,
+}: IMakePostUserController) => {
   return async (httpRequest: HttpRequest): Promise<HttpResponse> => {
     try {
       const { source = {}, ...customerInfo } = httpRequest.body;
@@ -20,27 +25,21 @@ const makePostCustomer = ({ addCustomer, Logger }: IMakePostUserController) => {
         source,
       });
 
-      return {
-        headers: {
+      return response(
+        {
+          passenger: createdCustomer,
+        },
+        201,
+        {
+          "Last-Modified": `${dayjs(createdCustomer.updated_at).format(
+            "ddd, DD MMM YYYY HH:mm:ss"
+          )} GMT`,
           "Content-Type": "application/json",
-          "Last-Modified": "",
-        },
-        statusCode: 201,
-        body: {
-          customer: createdCustomer,
-        },
-      };
+        }
+      );
     } catch (e: any) {
       Logger.error(e);
-      return {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        statusCode: 400,
-        body: {
-          error: e.message,
-        },
-      };
+      return response({ message: e.message }, 400);
     }
   };
 };

@@ -25,6 +25,25 @@ async function findById({ customerId }: { customerId: string }) {
   return customer;
 }
 
+async function findOne(
+  query: { email?: string; phone_number?: string },
+  callback?: (err: boolean, passenger?: Passenger) => void
+) {
+  const connection = getConnection();
+  const repository = connection.getRepository(Passenger);
+
+  const passenger = await repository.findOne({
+    where: { ...query },
+    relations: ["devices", "saved_addresses"],
+  });
+  if (passenger === undefined) {
+    callback?.(true);
+    return null;
+  }
+  callback?.(false, passenger);
+  return passenger;
+}
+
 async function findByHash({ hash }: any): Promise<any> {
   const connection = getConnection();
 
@@ -98,7 +117,8 @@ const PassengerSchema = Object.freeze({
   findByHash,
   findAll,
   findById,
+  findOne,
 });
 
 export default PassengerSchema;
-export { update, remove, findByHash, findAll, findById, insert };
+export { update, remove, findByHash, findAll, findById, insert, findOne };

@@ -20,6 +20,7 @@ export default async (app: Application, callback?: () => void) => {
   app.all("*", (_, res: Response) => {
     res.status(400).send({
       message: "Invalid api route",
+      status: false,
     });
   });
 
