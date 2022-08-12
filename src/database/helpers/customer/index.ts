@@ -1,5 +1,5 @@
 import ipRegex from "ip-regex";
-import bcrypt from "bcrypt";
+import argon2 from "argon2";
 import crypto from "crypto";
 import buildMakeCustomer from "./customer";
 import buildMakeSource from "../generic/source";
@@ -9,7 +9,7 @@ const isValidIp = (ip: string) => {
 };
 
 const createHash = async (text: string | Buffer): Promise<string> => {
-  return await bcrypt.hash(text, 10);
+  return await argon2.hash(text);
 };
 
 const sanitize = (text: string) => {

@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import express from "express";
 import { db } from "./database";
-import logger from "./utils/logger";
+import { Logger } from "./utils";
 import loaders from "./loaders";
 
 const startServer = async () => {
@@ -12,7 +12,7 @@ const startServer = async () => {
   await loaders.init({ app });
 
   app.listen(port, async () => {
-    logger.info(`Server is running on port ${port}`);
+    Logger.info(`Server is running on port ${process.env.APP_URL}:${port}`);
     await db.connectToDB();
   });
 };

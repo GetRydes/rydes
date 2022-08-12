@@ -1,11 +1,11 @@
-import { Customer } from "../database/entity/Customer";
+import { Passenger } from "../passengers/entities/passenger.entity";
 
 export interface ICustomerEntity {
-  Customer: Customer;
+  Passenger: Passenger;
 }
 
-export interface ICustomerSchema {
-  customerSchema: {
+export interface IPassengerSchema {
+  PassengerSchema: {
     findAll: () => Promise<unknown[] | undefined>;
     findByHash: ({ hash }: any) => Promise<any>;
     findById: ({ customerId }: { customerId: string }) => Promise<any>;
