@@ -10,12 +10,12 @@ const router = Router();
 
 router.get("/status", (_, res) => {
   /* 
-    #swagger.description = 'This endpoint is used to check the status of the bubble africa api server'
+    #swagger.description = 'This endpoint is used to check the status of the Rydes api server'
     #swagger.responses[200] = { 
-      description: 'Bubble API server is running' 
+      description: 'Rydes API server is running' 
     }
     #swagger.responses[500] = { 
-      description: 'Bubble API server is down',
+      description: 'Rydes API server is down',
     }
   */
   return res.status(200).json({
