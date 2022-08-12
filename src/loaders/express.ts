@@ -1,10 +1,8 @@
 import cors from "cors";
-import express, { Application, Response } from "express";
-import swaggerUi from "swagger-ui-express";
-import routes from "../api/routes";
-import swaggerFile from "../../swagger-output.json";
+import express, { Application } from "express";
+import session from "express-session";
 
-export default async ({ app }: { app: Application }) => {
+export default async (app: Application, callback?: () => void) => {
   app.use(cors());
   app.use(express.json());
   app.use(
@@ -12,14 +10,13 @@ export default async ({ app }: { app: Application }) => {
       extended: false,
     })
   );
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET_KEY as string,
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
 
-  app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
-  app.use("/api/v1", routes);
-
-  app.all("*", (_, res: Response) => {
-    res.status(400).send({
-      message: "Invalid api route",
-    });
-  });
+  callback?.();
 };

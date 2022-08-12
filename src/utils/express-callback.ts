@@ -26,7 +26,9 @@ export const makeExpressCallback = (controller: ControllerType) => {
         return res.status(httpResponse.statusCode).send(httpResponse.body);
       })
       .catch((e) => {
-        return res.status(500).send({ error: "An unkown error occurred." });
+        return res
+          .status(500)
+          .send({ message: "An unkown error occurred.", status: false });
       });
   };
 };
