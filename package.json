@@ -8,7 +8,8 @@
     "prestart": "node build/swagger.js",
     "start:dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "docs:generate:dev": "node swagger.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "repository": {
     "type": "git",
@@ -56,6 +57,7 @@
     "@types/swagger-ui-express": "^4.1.3",
     "@types/valid-url": "^1.0.3",
     "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.5.2"
   }
 }
