@@ -1,4 +1,4 @@
-import { IPassengerSchema } from "../../types";
+import { IPassengerSchema } from "../../../types";
 
 const makeRemoveCustomer = ({ PassengerSchema }: IPassengerSchema) => {
   const removeCustomer = async ({ id }: { id: string }) => {

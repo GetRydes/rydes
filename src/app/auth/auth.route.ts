@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import { makeCallback } from "../utils";
+import { makeCallback } from "../../utils";
 import { loginPassenger, registerPassenger } from "./auth.controller";
 
 const router = Router();

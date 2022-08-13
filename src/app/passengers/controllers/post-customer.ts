@@ -3,7 +3,7 @@ import {
   HttpRequest,
   HttpResponse,
   IMakePostUserController,
-} from "../../types";
+} from "../../../types";
 
 const makePostCustomer = ({
   addCustomer,

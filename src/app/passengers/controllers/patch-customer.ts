@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse, ICustomerData } from "../../types";
+import { HttpRequest, HttpResponse, ICustomerData } from "../../../types";
 
 const makePatchCustomer = ({ editCustomer, Logger }: any) => {
   return async (httpRequest: HttpRequest): Promise<HttpResponse> => {

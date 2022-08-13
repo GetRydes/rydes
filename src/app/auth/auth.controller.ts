@@ -1,5 +1,5 @@
-import { Logger } from "../utils";
-import response from "../utils/response";
+import { Logger } from "../../utils";
+import response from "../../utils/response";
 import makeLoginPassenger from "./controllers/login-passenger";
 import makeRegisterPassenger from "./controllers/register-passenger";
 

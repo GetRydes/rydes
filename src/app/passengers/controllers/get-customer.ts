@@ -1,11 +1,10 @@
-import { HttpRequest, HttpResponse } from "../../types";
+import { HttpRequest, HttpResponse } from "../../../types";
 
-const makeGetCustomers = ({ listCustomers, Logger }: any) => {
+const makeGetCustomer = ({ retrieveCustomer, Logger }: any) => {
   return async (httpRequest: HttpRequest): Promise<HttpResponse> => {
     try {
-      const customers = await listCustomers({
-        customerId: httpRequest.query.customerId,
-      });
+      const { id } = httpRequest.params;
+      const customers = await retrieveCustomer({ customerId: id });
 
       return {
         headers: {
@@ -32,4 +31,4 @@ const makeGetCustomers = ({ listCustomers, Logger }: any) => {
   };
 };
 
-export default makeGetCustomers;
+export default makeGetCustomer;

@@ -1,5 +1,5 @@
-import makeCustomer from "../../database/helpers/customer";
-import { ICustomerData, IPassengerSchema } from "../../types";
+import makeCustomer from "../../../database/helpers/customer";
+import { ICustomerData, IPassengerSchema } from "../../../types";
 
 const makeEditCustomer = ({ PassengerSchema }: IPassengerSchema) => {
   return async ({ id, ...changes }: ICustomerData & { id: string }) => {

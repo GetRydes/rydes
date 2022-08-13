@@ -1,4 +1,4 @@
-import { IPassengerSchema, IGetCustomersData } from "../../types";
+import { IPassengerSchema, IGetCustomersData } from "../../../types";
 
 const makeListCustomers = ({ PassengerSchema }: IPassengerSchema) => {
   return ({ customerId }: IGetCustomersData) => {

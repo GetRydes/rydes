@@ -1,7 +1,7 @@
 import { getConnection } from "typeorm";
 import { Passenger } from "./entities/passenger.entity";
 import { Device } from "../devices/entities/device.entity";
-import { ICustomerData } from "../types";
+import { ICustomerData } from "../../types";
 
 async function findAll() {
   const connection = getConnection();

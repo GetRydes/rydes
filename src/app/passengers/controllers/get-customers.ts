@@ -1,15 +1,21 @@
-import { HttpRequest, HttpResponse } from "../../types";
+import { HttpRequest, HttpResponse } from "../../../types";
 
-const makeDeleteCustomer = ({ removeCustomer, Logger }: any) => {
+const makeGetCustomers = ({ listCustomers, Logger }: any) => {
   return async (httpRequest: HttpRequest): Promise<HttpResponse> => {
     try {
-      const deleted = await removeCustomer({ id: httpRequest.params.id });
+      const customers = await listCustomers({
+        customerId: httpRequest.query.customerId,
+      });
+
       return {
         headers: {
           "Content-Type": "application/json",
+          "Last-Modified": "",
         },
-        statusCode: deleted.deletedCount === 0 ? 404 : 200,
-        body: { deleted },
+        statusCode: 200,
+        body: {
+          customers,
+        },
       };
     } catch (e: any) {
       Logger.error(e);
@@ -26,4 +32,4 @@ const makeDeleteCustomer = ({ removeCustomer, Logger }: any) => {
   };
 };
 
-export default makeDeleteCustomer;
+export default makeGetCustomers;
