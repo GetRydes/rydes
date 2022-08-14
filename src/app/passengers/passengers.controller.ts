@@ -5,7 +5,7 @@ import {
   editCustomer,
   removeCustomer,
 } from "./use-cases";
-import { Logger, response } from "../utils";
+import { Logger, response } from "../../utils";
 import makePostCustomer from "./controllers/post-customer";
 import makeGetCustomers from "./controllers/get-customers";
 import makeGetCustomer from "./controllers/get-customer";

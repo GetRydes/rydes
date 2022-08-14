@@ -2,9 +2,9 @@ import { Router } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../swagger-output.json";
 
-import authRoutes from "./auth/auth.route";
-import passengerRoutes from "./passengers/passengers.route";
-import cardRoutes from "./cards/cards.route";
+import authRoutes from "./app/auth/auth.route";
+import passengerRoutes from "./app/passengers/passengers.route";
+import cardRoutes from "./app/cards/cards.route";
 
 const router = Router();
 

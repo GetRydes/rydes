@@ -1,16 +1,21 @@
-import { HttpRequest, HttpResponse } from "../../types";
+import { HttpRequest, HttpResponse } from "../../../types";
 import { AuthControllerFactory } from "./controllers.type";
+import PassengerSchema from "../../passengers/pasengers.data-access";
 
 const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
   return async (request: HttpRequest): Promise<HttpResponse> => {
     try {
       switch (request.params.status) {
         case "success":
-          // generate access and refresh token
+          const { id, email } = request.query;
+          const passengerTokenData = PassengerSchema.createToken({ id, email });
 
           return response(
             {
               status: true,
+              data: {
+                ...passengerTokenData,
+              },
             },
             200
           );
@@ -24,6 +29,7 @@ const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
       Logger.error(e);
       return response(
         {
+          status: false,
           message: e.message,
         },
         400

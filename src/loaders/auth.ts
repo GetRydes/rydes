@@ -2,7 +2,7 @@ import { Application } from "express";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import argon2 from "argon2";
-import PassengerSchema from "../passengers/pasengers.data-access";
+import PassengerSchema from "../app/passengers/pasengers.data-access";
 
 export default async (app: Application, callback?: () => void) => {
   app.use(passport.initialize());

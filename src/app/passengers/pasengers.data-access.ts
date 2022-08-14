@@ -1,7 +1,9 @@
 import { getConnection } from "typeorm";
+import jwt from "jsonwebtoken";
 import { Passenger } from "./entities/passenger.entity";
 import { Device } from "../devices/entities/device.entity";
-import { ICustomerData } from "../types";
+import { ICustomerData } from "../../types";
+import dayjs from "dayjs";
 
 async function findAll() {
   const connection = getConnection();
@@ -60,37 +62,36 @@ async function insert(
     hash: string;
   }
 ): Promise<any> {
-  const connection = getConnection();
-  const customerRepository = connection.getRepository(Passenger);
-  const sourceRepository = connection.getRepository(Device);
-
   // create customer
-  const customer = new Passenger();
-  customer.hash = data.hash;
-  customer.email = data.email;
-  customer.first_name = data.firstName;
-  customer.last_name = data.lastName;
-  customer.password = data.password;
-  customer.phone_number = data.phoneNumber;
-  const customerResult = await customerRepository.save(customer);
+  const customer = new Passenger(
+    (({ hash, email, firstName, lastName, password, phoneNumber }) => ({
+      hash,
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      password,
+      phone_number: phoneNumber,
+    }))(data)
+  );
+  const customerResult = await customer.save();
 
   // save user device information to db
-  const source = new Device();
-  source.browser = data.source.browser;
-  source.ip = data.source.ip;
-  source.referrer = data.source.referrer;
-  source.passenger = customerResult;
-  await sourceRepository.save(source);
+  const source = new Device(
+    (({ browser, ip, referrer }) => ({
+      browser,
+      ip,
+      referrer,
+      passenger: customerResult,
+    }))(data.source)
+  );
+  await source.save();
 
   return customerResult;
 }
 
 async function remove({ customerId }: { customerId: string }) {
-  const connection = getConnection();
-  const customerRepository = connection.getRepository(Passenger);
-
-  const customerToDelete = await customerRepository.findOne(customerId);
-  if (customerToDelete) await customerRepository.remove(customerToDelete);
+  const customerToDelete = await Passenger.findOne(customerId);
+  if (customerToDelete) await Passenger.remove(customerToDelete);
 }
 
 async function update(data: ICustomerData) {
@@ -110,6 +111,34 @@ async function update(data: ICustomerData) {
   return result;
 }
 
+function createToken(data: { id: string; email: string }) {
+  // save tokens to database with their expiry
+  // so that when we want to handle jwt revocation on logout or blakclisting the refresh token
+
+  const accessToken = jwt.sign(
+    { ...data, sub: data.id },
+    process.env.TOKEN_SECRET_KEY as string,
+    {
+      expiresIn: "3d",
+      issuer: "",
+    }
+  );
+  const refreshToken = jwt.sign(
+    { ...data, sub: data.id },
+    process.env.TOKEN_SECRET_KEY as string,
+    {
+      expiresIn: "7d",
+    }
+  );
+
+  return {
+    accessToken,
+    accessTokenExpiresIn: dayjs().add(3, "day"),
+    refreshToken,
+    refreshTokenExpiresIn: dayjs().add(7, "day"),
+  };
+}
+
 const PassengerSchema = Object.freeze({
   update,
   remove,
@@ -118,7 +147,17 @@ const PassengerSchema = Object.freeze({
   findAll,
   findById,
   findOne,
+  createToken,
 });
 
 export default PassengerSchema;
-export { update, remove, findByHash, findAll, findById, insert, findOne };
+export {
+  update,
+  remove,
+  findByHash,
+  findAll,
+  findById,
+  insert,
+  findOne,
+  createToken,
+};
