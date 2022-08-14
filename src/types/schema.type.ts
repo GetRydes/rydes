@@ -1,4 +1,4 @@
-import { Passenger } from "../passengers/entities/passenger.entity";
+import { Passenger } from "../app/passengers/entities/passenger.entity";
 
 export interface ICustomerEntity {
   Passenger: Passenger;

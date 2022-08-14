@@ -1,5 +1,5 @@
 import express from "express";
-import { Passenger } from "../../passengers/entities/passenger.entity";
+import { Passenger } from "../../app/passengers/entities/passenger.entity";
 
 declare global {
   namespace Express {

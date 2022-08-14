@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse } from "../../types";
+import { HttpRequest, HttpResponse } from "../../../types";
 import { AuthControllerFactory } from "./controllers.type";
 
 const makeRegisterPassenger: AuthControllerFactory = (response, Logger) => {

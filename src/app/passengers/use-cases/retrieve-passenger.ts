@@ -1,4 +1,4 @@
-import { IPassengerSchema } from "../../types";
+import { IPassengerSchema } from "../../../types";
 
 const makeRetrieveCustomer = ({ PassengerSchema }: IPassengerSchema) => {
   return async ({ customerId }: { customerId: string }) => {

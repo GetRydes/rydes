@@ -6,13 +6,19 @@ import {
   UpdateDateColumn,
   JoinColumn,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Address } from "./address.entity";
 import { Card } from "../../cards/entities/card.entity";
 import { Device } from "../../devices/entities/device.entity";
 
 @Entity({ name: "passenger" })
-export class Passenger {
+export class Passenger extends BaseEntity {
+  constructor(passenger: Partial<Passenger>) {
+    super();
+    Object.assign(this, passenger);
+  }
+
   @PrimaryGeneratedColumn()
   id!: number;
 

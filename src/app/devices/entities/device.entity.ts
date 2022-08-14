@@ -6,11 +6,17 @@ import {
   UpdateDateColumn,
   JoinColumn,
   ManyToOne,
+  BaseEntity,
 } from "typeorm";
 import { Passenger } from "../../passengers/entities/passenger.entity";
 
 @Entity({ name: "device" })
-export class Device {
+export class Device extends BaseEntity {
+  constructor(device: Partial<Device>) {
+    super();
+    Object.assign(this, device);
+  }
+
   @PrimaryGeneratedColumn()
   id!: number;
 
