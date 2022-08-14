@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { makeCallback } from "../../utils";
+import isAuthenticated from "../../utils/authenticated";
 import {
   postCustomer,
   getCustomers,
@@ -11,9 +12,9 @@ import {
 const router = Router();
 
 router.post("/", makeCallback(postCustomer));
-router.get("/", makeCallback(getCustomers));
-router.get("/:id", makeCallback(getCustomer));
-router.patch("/:id", makeCallback(patchCustomer));
-router.delete("/:id", makeCallback(deleteCustomer));
+router.get("/", isAuthenticated, makeCallback(getCustomers));
+router.get("/:id", isAuthenticated, makeCallback(getCustomer));
+router.patch("/:id", isAuthenticated, makeCallback(patchCustomer));
+router.delete("/:id", isAuthenticated, makeCallback(deleteCustomer));
 
 export default router;
