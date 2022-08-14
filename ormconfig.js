@@ -43,13 +43,37 @@ module.exports = {
   database: envString(getProdOptions().database, process.env.DB_NAME),
   synchronize: false,
   logging: false,
-  entities: [join(__dirname, "**", "*.entity.{ts,js}")],
-  migrations: [join(__dirname, "**", "database/migrations", "**", "*.{ts,js}")],
-  subscribers: [join(__dirname, "**", "subscribers", "**", "*.{ts,js}")],
+  entities: [
+    envString(
+      join(__dirname, "build/**", "*.entity.{ts,js}"),
+      join(__dirname, "**", "*.entity.{ts,js}")
+    ),
+  ],
+  migrations: [
+    envString(
+      join(__dirname, "build/**", "database/migrations", "**", "*.{ts,js}"),
+      join(__dirname, "**", "database/migrations", "**", "*.{ts,js}")
+    ),
+  ],
+  subscribers: [
+    envString(
+      join(__dirname, "build/**", "subscribers", "**", "*.{ts,js}"),
+      join(__dirname, "**", "subscribers", "**", "*.{ts,js}")
+    ),
+  ],
   cli: {
-    entitiesDir: join(__dirname, "**", "entities"),
-    migrationsDir: join(__dirname, "src", "database/migrations"),
-    subscribersDir: join(__dirname, "**", "subscribers"),
+    entitiesDir: envString(
+      join(__dirname, "build/**", "entities"),
+      join(__dirname, "**", "entities")
+    ),
+    migrationsDir: envString(
+      join(__dirname, "build/src", "database/migrations"),
+      join(__dirname, "src", "database/migrations")
+    ),
+    subscribersDir: envString(
+      join(__dirname, "build/src", "subscribers"),
+      join(__dirname, "src", "database/subscribers")
+    ),
   },
   ...sslConfig,
 };
