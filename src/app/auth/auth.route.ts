@@ -6,7 +6,7 @@ import { loginPassenger, registerPassenger } from "./auth.controller";
 
 const router = Router();
 
-router.post("/register", makeCallback(registerPassenger));
+router.post("/register/password", makeCallback(registerPassenger));
 
 router.post(
   "/login/password",

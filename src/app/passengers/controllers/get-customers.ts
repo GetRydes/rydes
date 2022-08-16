@@ -14,7 +14,8 @@ const makeGetCustomers = ({ listCustomers, Logger }: any) => {
         },
         statusCode: 200,
         body: {
-          customers,
+          success: true,
+          data: customers,
         },
       };
     } catch (e: any) {
@@ -25,6 +26,7 @@ const makeGetCustomers = ({ listCustomers, Logger }: any) => {
         },
         statusCode: 400,
         body: {
+          success: false,
           message: e.message,
         },
       };
