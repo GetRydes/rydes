@@ -28,7 +28,7 @@ export const makeExpressCallback = (controller: ControllerType) => {
       .catch((e) => {
         return res
           .status(500)
-          .send({ message: "An unkown error occurred.", status: false });
+          .send({ message: "An unkown error occurred.", success: false });
       });
   };
 };

@@ -2,7 +2,7 @@ import { HttpRequest, HttpResponse } from "../../../types";
 import { AuthControllerFactory } from "./controllers.type";
 import PassengerSchema from "../../passengers/pasengers.data-access";
 
-const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
+const makeLoginPassenger: AuthControllerFactory = (_, response, Logger) => {
   return async (request: HttpRequest): Promise<HttpResponse> => {
     try {
       switch (request.params.status) {
@@ -12,7 +12,7 @@ const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
 
           return response(
             {
-              status: true,
+              success: true,
               data: {
                 ...passengerTokenData,
               },
@@ -21,7 +21,7 @@ const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
           );
         default:
           return response(
-            { message: "Unauthorised request", status: false },
+            { message: "Unauthorised request", success: false },
             401
           );
       }
@@ -29,7 +29,7 @@ const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
       Logger.error(e);
       return response(
         {
-          status: false,
+          success: false,
           message: e.message,
         },
         400

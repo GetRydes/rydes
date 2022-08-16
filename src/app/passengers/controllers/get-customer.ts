@@ -13,7 +13,8 @@ const makeGetCustomer = ({ retrieveCustomer, Logger }: any) => {
         },
         statusCode: 200,
         body: {
-          customers,
+          success: true,
+          data: customers,
         },
       };
     } catch (e: any) {

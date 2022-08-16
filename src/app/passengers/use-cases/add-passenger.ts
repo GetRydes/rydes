@@ -8,9 +8,7 @@ const makeAddCustomer = ({ PassengerSchema }: IPassengerSchema) => {
     const exists = await PassengerSchema.findByHash({
       hash: customer.getHash(),
     });
-    if (exists) {
-      return exists;
-    }
+    if (exists) return exists;
 
     const customerSource = customer.getSource();
 
