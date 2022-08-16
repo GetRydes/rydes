@@ -13,51 +13,7 @@
       "url": "https://rydes-api-staging.herokuapp.com/"
     }
   ],
-  "paths": {
-    "/api/v1/status": {
-      "get": {
-        "description": "This endpoint is used to check the status of the bubble africa api server",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Bubble API server is running"
-          },
-          "500": {
-            "description": "Bubble API server is down"
-          }
-        }
-      }
-    },
-    "/api/v1/customers/": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/customers/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
-      "patch": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
-      "delete": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    }
-  },
+  "paths": {},
   "components": {
     "schemas": {
       "addUser": {

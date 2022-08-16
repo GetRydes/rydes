@@ -1,10 +1,15 @@
-import logger from "pino";
+import pino from "pino";
 import dayjs from "dayjs";
 
-const log = logger({
-  prettyPrint: true,
+const log = pino({
   base: {
     pid: false,
+  },
+  transport: {
+    target: "pino-pretty",
+    options: {
+      colorize: true,
+    },
   },
   timestamp: () => `,"time":"${dayjs().format()}"`,
 });

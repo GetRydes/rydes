@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-router.post("/", makeCallback(postCustomer));
+router.post("/", isAuthenticated, makeCallback(postCustomer));
 router.get("/", isAuthenticated, makeCallback(getCustomers));
 router.get("/:id", isAuthenticated, makeCallback(getCustomer));
 router.patch("/:id", isAuthenticated, makeCallback(patchCustomer));

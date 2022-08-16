@@ -7,12 +7,12 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   if (authHeader == null)
     return res
       .status(401)
-      .json({ status: false, message: "No authorization header was found" });
+      .json({ success: false, message: "No authorization header was found" });
 
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null)
     return res.status(401).json({
-      status: false,
+      success: false,
       message: "No token provided in authorization header",
     });
 
@@ -20,7 +20,7 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
     if (err)
       return res
         .status(401)
-        .json({ status: false, message: "Invalid authorization token" });
+        .json({ success: false, message: "Invalid authorization token" });
     req.user = user as Passenger;
     next();
   });
