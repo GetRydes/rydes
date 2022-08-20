@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart:dev":"npm run typeorm migration:run",
+    "prestart:dev": "npm run typeorm migration:run",
     "start:dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "docs:generate:dev": "node swagger.ts",
     "prestart": "node build/swagger.js",
