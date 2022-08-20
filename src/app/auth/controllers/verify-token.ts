@@ -1,4 +1,4 @@
-import { TokenService } from "../../../utils";
+import { TokenService } from "../../../services";
 import { AuthControllerFactory } from "./controllers.type";
 
 const makeVerifyToken: AuthControllerFactory = (response, Logger) => {

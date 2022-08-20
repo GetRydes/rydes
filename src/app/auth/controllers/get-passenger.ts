@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
+import { TokenService } from "../../../services";
 import { DecodedTokenData } from "../../../types";
-import { TokenService } from "../../../utils";
 import { AuthControllerFactory } from "./controllers.type";
 
 const makeGetPassenger: AuthControllerFactory = (response, Logger, options) => {
