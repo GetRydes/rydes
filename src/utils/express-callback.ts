@@ -14,6 +14,7 @@ export const makeExpressCallback = (controller: ControllerType) => {
         "Content-Type": req.get("Content-Type")!,
         Referer: req.get("referer")!,
         "User-Agent": req.get("User-Agent")!,
+        Authorization: req.get("Authorization"),
       },
     };
 
