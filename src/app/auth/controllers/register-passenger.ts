@@ -1,17 +1,17 @@
-import { HttpRequest, HttpResponse } from "../../../types";
 import PassengerSchema from "../../passengers/pasengers.data-access";
 import { AuthControllerFactory } from "./controllers.type";
 
 const makeRegisterPassenger: AuthControllerFactory = (
-  addCustomer,
   response,
-  Logger
+  Logger,
+  options
 ) => {
-  return async (request: HttpRequest): Promise<HttpResponse> => {
+  return async (request) => {
     // save user information and also generate access and refresh token
 
     try {
       const { source = {}, ...passengerInfo } = request.body;
+      const { addPassenger } = options?.useCases!;
 
       source.ip = request.ip;
       source.browser = request.headers["User-Agent"];
@@ -19,7 +19,7 @@ const makeRegisterPassenger: AuthControllerFactory = (
         source.referrer = request.headers["Referer"];
       }
 
-      const passenger = await addCustomer?.({
+      const passenger = await addPassenger?.({
         ...passengerInfo,
         source,
       });

@@ -1,9 +1,8 @@
-import { HttpRequest, HttpResponse } from "../../../types";
 import { AuthControllerFactory } from "./controllers.type";
 import PassengerSchema from "../../passengers/pasengers.data-access";
 
-const makeLoginPassenger: AuthControllerFactory = (_, response, Logger) => {
-  return async (request: HttpRequest): Promise<HttpResponse> => {
+const makeLoginPassenger: AuthControllerFactory = (response, Logger) => {
+  return async (request) => {
     try {
       switch (request.params.status) {
         case "success":

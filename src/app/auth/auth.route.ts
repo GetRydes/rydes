@@ -2,9 +2,16 @@ import { Router } from "express";
 import passport from "passport";
 import qs from "query-string";
 import { makeCallback } from "../../utils";
-import { loginPassenger, registerPassenger } from "./auth.controller";
+import {
+  getPassenger,
+  loginPassenger,
+  registerPassenger,
+  verifyToken,
+} from "./auth.controller";
 
 const router = Router();
+
+router.get("/me", makeCallback(getPassenger));
 
 router.post("/register/password", makeCallback(registerPassenger));
 
@@ -30,7 +37,9 @@ router.post(
 
 router.get("/login/password/:status", makeCallback(loginPassenger));
 
-router.post("/refresh", () => {
+router.get("/token/verify", makeCallback(verifyToken));
+
+router.post("/token/refresh", () => {
   // use this route to generate a new access token after the token has expired
   /**
    * when the user attempts to get a new token using the refresh token

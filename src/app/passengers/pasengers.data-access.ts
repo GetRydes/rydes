@@ -120,7 +120,7 @@ function createToken(data: { id: string; email: string }) {
     process.env.TOKEN_SECRET_KEY as string,
     {
       expiresIn: "3d",
-      issuer: "",
+      issuer: "rydes.ponnle.xyz",
     }
   );
   const refreshToken = jwt.sign(
@@ -128,6 +128,7 @@ function createToken(data: { id: string; email: string }) {
     process.env.TOKEN_SECRET_KEY as string,
     {
       expiresIn: "7d",
+      issuer: "rydes.ponnle.xyz",
     }
   );
 
