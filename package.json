@@ -7,8 +7,8 @@
     "prestart:dev": "npm run typeorm migration:run",
     "start:dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "docs:generate:dev": "node swagger.ts",
-    "prestart": "node build/swagger.js",
-    "start": "node build/src/app.js",
+    "prestart": "node ./swagger.js",
+    "start": "node ./src/app.js",
     "build": "tsc",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
